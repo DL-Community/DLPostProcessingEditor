@@ -1,11 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PreviewSceneController : MonoBehaviour
 {
     #region Preview Camera
-    public Vector3[] previewPostions;
+    [Header("Preview Camera")]
+    public PrevObjects[] prevObjects;
+    [System.Serializable]
+    public class PrevObjects
+    {
+        public Vector3 camPosition;
+        public string prevObjectName;
+    }
+    public Text prevObjectName;
     public Camera previewCamera;
     public Transform PreviewCameraTransform => previewCamera?.transform;
     public Color PreviewCameraBackgroundColor => previewCamera.backgroundColor;
@@ -16,8 +25,8 @@ public class PreviewSceneController : MonoBehaviour
     }
     void UpdateCamPosition()
     {
-        if(PreviewCameraTransform.localPosition != previewPostions[CurrentPostionSelection])
-            PreviewCameraTransform.Translate((previewPostions[CurrentPostionSelection]- PreviewCameraTransform.localPosition) * 10f *Time.deltaTime,Space.Self);
+        if(PreviewCameraTransform.localPosition != prevObjects[CurrentPostionSelection].camPosition)
+            PreviewCameraTransform.Translate((prevObjects[CurrentPostionSelection].camPosition- PreviewCameraTransform.localPosition) * 10f *Time.deltaTime,Space.Self);
     }
 
 
@@ -26,14 +35,44 @@ public class PreviewSceneController : MonoBehaviour
     public void ChangeCamPos(int value)
     {
         CurrentPostionSelection += value;
-        if(CurrentPostionSelection >= previewPostions.Length)
+        if (CurrentPostionSelection >= prevObjects.Length)
             CurrentPostionSelection = 0;
         else if(CurrentPostionSelection < 0)
-            CurrentPostionSelection = previewPostions.Length - 1;
+            CurrentPostionSelection = prevObjects.Length - 1;
+        prevObjectName.text = prevObjects[CurrentPostionSelection].prevObjectName;
     }
     #endregion
 
+    #region Env
+    [Header("ENV")]
+    public Material cubeMat;
+    public Material sphereMat;
+    public Material capsuleMat;
+    public Material planeMat;
+    void InitEnv()
+    {
 
+    }
+
+    public Color FogColor
+    {
+        get 
+        {
+
+            Color color =  PlayerPrefsEX.GetColor("FogColor", new Color(220, 249, 255, 0));
+            RenderSettings.fogColor = color;
+            return color;
+        }
+        set
+        {
+            RenderSettings.fogColor = value;
+
+            PlayerPrefsEX.SetColor("FogColor", value);
+        }
+    }
+
+
+    #endregion
 
 
     void Update()
@@ -43,5 +82,6 @@ public class PreviewSceneController : MonoBehaviour
     private void Start()
     {
         InitPrevCamera();
+        InitEnv();
     }
 }
