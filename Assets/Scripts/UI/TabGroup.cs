@@ -14,7 +14,7 @@ namespace UI.Tab
         private void Start()
         {
             if(block)
-                block?.SetActive(false);
+                block.SetActive(false);
         }
         public void AddTab(Tab tab)
         {
@@ -54,7 +54,7 @@ namespace UI.Tab
             Tabs[showTab]?.ShowTab();
             currentSelection = showTab;
             if (block)
-                block?.SetActive(true);
+                block.SetActive(true);
         }
         public void CloseAllTabs()
         {
@@ -63,7 +63,7 @@ namespace UI.Tab
                 tab?.ShowTab(false);
             }
             if (block)
-                block?.SetActive(false);
+                block.SetActive(false);
             currentSelection = null;
         }
 
