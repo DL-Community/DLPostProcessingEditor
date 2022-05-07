@@ -8,13 +8,13 @@ namespace UI.Tab
         public GameObject block;
 
 
-
         List<Tab> Tabs { get; set; }
         public int? currentSelection;
         public bool isCurrentShowing => currentSelection != null;
         private void Start()
         {
-            block?.SetActive(false);
+            if(block)
+                block?.SetActive(false);
         }
         public void AddTab(Tab tab)
         {
@@ -26,20 +26,44 @@ namespace UI.Tab
                 tab.ID = Tabs.IndexOf(tab);
             }
         }
+
+        public void ShowTab(int showTab, bool isOnMouseHover = false, bool tapToHide = false)
+        {
+            if (isOnMouseHover)
+            {
+                if (isCurrentShowing)
+                {
+                    ShowTab(showTab);
+                }
+            }
+            else if (!isOnMouseHover)
+            {
+                if (isCurrentShowing && tapToHide)
+                {
+                    CloseAllTabs();
+                }
+                else
+                {
+                    ShowTab(showTab);
+                }
+            }
+        }
         public void ShowTab(int showTab)
         {
             CloseAllTabs();
-            Tabs[showTab]?.TabItem?.SetActive(true);
+            Tabs[showTab]?.ShowTab();
             currentSelection = showTab;
-            block?.SetActive(true);
+            if (block)
+                block?.SetActive(true);
         }
         public void CloseAllTabs()
         {
             foreach (Tab tab in Tabs)
             {
-                tab?.TabItem?.SetActive(false);
+                tab?.ShowTab(false);
             }
-            block?.SetActive(false);
+            if (block)
+                block?.SetActive(false);
             currentSelection = null;
         }
 

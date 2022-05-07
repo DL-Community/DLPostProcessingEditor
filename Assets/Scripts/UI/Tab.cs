@@ -11,30 +11,40 @@ namespace UI.Tab
         public int ID { get; set; }
         public TabGroup tabGroup;
         public GameObject TabItem;
-        public bool ShowOnMouseHovered = true;
-        public bool isShowing => TabItem != null && TabItem.activeInHierarchy;
+        public bool ShowOnMouseHovered;
+        public bool tapToHide;
+        public bool showOnStart;
+
+        public Color color = Color.white;
+        public Color selectedColor = Color.white;
+
+        public Image background;
+        public bool isShowing => tabGroup.currentSelection != null ? tabGroup.currentSelection == ID : false;
         void Start()
         {
             if(tabGroup)
                 tabGroup.AddTab(this);
             GetComponent<Button>()?.onClick.AddListener(OnClick);
-            TabItem.SetActive(false);
+            ShowTab(showOnStart);
         }
         void OnClick()
         {
-            ShowThis();
+            tabGroup.ShowTab(ID, false, tapToHide);
         }
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (ShowOnMouseHovered && tabGroup.isCurrentShowing && !isShowing)
-                tabGroup.ShowTab(ID);
+            if (ShowOnMouseHovered  && !isShowing)
+                tabGroup.ShowTab(ID, true, tapToHide);
         }
-        void ShowThis()
+        public void UpdateColor(bool showing)
         {
-            if (!isShowing)
-                tabGroup.ShowTab(ID);
-            else if(isShowing)
-                tabGroup.CloseAllTabs();
+            if(background)
+                background.color = showing ? selectedColor : color;
+        }
+        public void ShowTab(bool show = true)
+        {
+            TabItem.SetActive(show);
+            UpdateColor(show);
         }
     }
 
