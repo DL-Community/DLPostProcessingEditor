@@ -6,9 +6,7 @@ public class PlayerPrefsEX : PlayerPrefs
     #region BOOL
     static public bool GetBool(string key, bool defaultValue)
     {
-        int def = 0;
-        if (defaultValue)
-            def = 1;
+        int def = defaultValue ? 1 : 0;
         return 1 == GetInt(key, def);
     }
     static public bool GetBool(string key)

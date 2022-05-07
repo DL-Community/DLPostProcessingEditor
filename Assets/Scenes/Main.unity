@@ -1839,7 +1839,7 @@ MonoBehaviour:
   cubeMat: {fileID: 2100000, guid: 7abcffb655773e64b9341a809aa61656, type: 2}
   sphereMat: {fileID: 2100000, guid: 03b87625b79d4e849a5b229e9d577114, type: 2}
   capsuleMat: {fileID: 2100000, guid: 0b43e6465ceb47d4bb6906fc4b01aa29, type: 2}
-  planeMat: {fileID: 0}
+  planeMat: {fileID: 2100000, guid: dcaab9598ecb94c4ab751be14abebc41, type: 2}
 --- !u!1 &1088660661
 GameObject:
   m_ObjectHideFlags: 0
