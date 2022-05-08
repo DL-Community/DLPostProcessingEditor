@@ -1455,7 +1455,7 @@ MonoBehaviour:
   tapToHide: 0
   showOnStart: 0
   color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
-  selectedColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
   background: {fileID: 840518702}
 --- !u!114 &840518702
 MonoBehaviour:
@@ -1942,7 +1942,7 @@ MonoBehaviour:
   tapToHide: 0
   showOnStart: 1
   color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
-  selectedColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
   background: {fileID: 1088660665}
 --- !u!114 &1088660665
 MonoBehaviour:
